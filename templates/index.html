@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}
+<section style="text-align:center;padding:3rem 0"><h1 style="font-size:2.6rem">Ignite Your <span style="color:var(--or)">Vitality</span></h1>
+<p>A 4-Week Transformation Programme for Every Age</p><p><em>Your Body. Your Rules. Your Energy.</em></p>
+<a class="btn pri" href="{{ url_for('signup') }}">INITIATE PROGRAM</a></section>
+{% for title, cards in sections %}<section><h2>{{ title }}</h2><div class="grid">{% for h, p in cards %}<div class="card"><h3>{{ h }}</h3><p>{{ p }}</p></div>{% endfor %}</div></section>{% endfor %}
+<p style="text-align:center"><a class="btn pri" href="{{ url_for('signup') }}">THE CHOICE IS YOURS</a></p>{% endblock %}

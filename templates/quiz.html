@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block body %}<h2>Your body profile</h2><p>Answer in your own way. Nothing is judged. BMI is never shown.</p>
+{% if age >= 60 %}<p class="note">Please check with your doctor before starting.</p>{% endif %}
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}">
+{% for title, fields in questions %}<fieldset class="card" style="margin:1rem 0"><legend><h3>{{ title }}</h3></legend>
+{% for key, label, type, opts in fields %}<label>{{ label }}</label>
+{% if type == 'num' %}<input name="{{ key }}" type="number" inputmode="numeric" value="{{ a.get(key, '') }}">
+{% elif type == 'multi' %}{% for o in opts %}<label class="o"><input type="checkbox" name="{{ key }}" value="{{ o }}" {{ 'checked' if o in a.get(key, []) }}> {{ o }}</label>{% endfor %}
+{% else %}{% for o in opts %}<label class="o"><input type="radio" name="{{ key }}" value="{{ o }}" {{ 'checked' if a.get(key) == o }}> {{ o }}</label>{% endfor %}{% endif %}{% endfor %}</fieldset>{% endfor %}
+<p class="note">If you marked any health concern, please talk to a doctor before starting.</p><button class="pri">Build my plan</button></form>{% endblock %}

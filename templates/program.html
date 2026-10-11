@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block body %}
+<h2>Hi {{ p.name }}!{% if p.managed %} <small>(parent-managed)</small>{% endif %}</h2>
+<p>Phase {{ '01 Adaptation' if wk < 2 else '02 Transformation' }} &middot; Streak: <b>{{ streak }}</b> days &middot; Week ring: <b>{{ ring }}%</b> &middot; Step goal: <b>{{ '{:,}'.format(steps) }}</b>/day &middot; Sessions done: {{ total }}/24</p>
+<p>{% for i in range(4) %}<a class="btn {{ 'pri' if i == wk }}" href="{{ url_for('program', week=i) }}">Week {{ i + 1 }}</a> {% endfor %}</p>
+<div class="note"><b>Week tip:</b> {{ plan[wk].tips }}{% if wk == 1 %} Week-2 check-in: how are your energy and mood?{% endif %}{% if wk == 3 %} Week-4 summary: {{ total }} of 24 sessions done. Regenerate for a fresh plan.{% endif %}</div>
+<div class="grid">{% for d in plan[wk].days %}{% set k = (wk, loop.index0) in done %}
+<article class="card {{ 'done' if k }}"><h3>{{ days[loop.index0] }} &middot; {{ d.ty }}</h3><b>{{ d.nm }}</b><br>{% if d.mn %}{{ d.mn }} min{% if d.snack %} (or 3x10-min movement snacks){% endif %}{% else %}Recover and recharge{% endif %}
+{% if d.mn %}<details><summary>Steps</summary><ol><li>Warm-up 5 min</li>{% for x in d.ex %}<li>{{ x }}</li>{% endfor %}<li>Cool-down 5 min</li></ol>{% for n in d.nt %}<p>- {{ n }}</p>{% endfor %}<p class="flash">Stop if you feel pain, dizziness or chest discomfort.</p></details>{% endif %}
+<form method="post" class="inline" action="{{ url_for('done', w=wk, d=loop.index0) }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button>{{ 'Done' if k else 'Mark as done' }}</button></form>
+<form method="post" class="inline" action="{{ url_for('adjust', w=wk, direction='hard') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Too hard</button></form>
+<form method="post" class="inline" action="{{ url_for('adjust', w=wk, direction='easy') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Too easy</button></form></article>{% endfor %}</div>
+<h3>Family profiles</h3><p>{% for x in profiles %}<form class="inline" method="post" action="{{ url_for('switch', pid=x.id) }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="{{ 'pri' if x.id == p.id }}">{{ x.name }}</button></form> {% endfor %}</p>
+<form method="post" action="{{ url_for('add_profile') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><input name="name" placeholder="Name" aria-label="Name" style="width:auto"> <input name="dob" type="date" aria-label="Date of birth" style="width:auto"> <button>Add profile</button></form>
+<p style="margin-top:1.5rem"><a class="btn" href="{{ url_for('plan_pdf') }}">Download plan (PDF)</a> <a class="btn" href="{{ url_for('quiz') }}">Retake questionnaire</a> <a class="btn" href="{{ url_for('export') }}">Export my data</a>
+<form class="inline" method="post" action="{{ url_for('regenerate') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Regenerate plan</button></form>
+<form class="inline" method="post" action="{{ url_for('delete') }}" onsubmit="return confirm('Delete your account and all data?')"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Delete account &amp; data</button></form></p>{% endblock %}

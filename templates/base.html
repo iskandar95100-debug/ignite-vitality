@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IGNITE YOUR VITALITY</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+<header><b>&infin; IGNITE</b><nav aria-label="Main"><a class="btn" href="{{ url_for('index') }}">Home</a>
+{% if logged_in %}<a class="btn" href="{{ url_for('program') }}">My Program</a>
+<form class="inline" method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Log out</button></form>
+{% else %}<a class="btn" href="{{ url_for('login') }}">Log in</a>{% endif %}
+<button onclick="fs(17)" aria-label="Normal text">A</button><button onclick="fs(20)" aria-label="Large text">A+</button><button onclick="fs(23)" aria-label="Largest text">A++</button>
+<button onclick="th()" aria-label="Light/dark theme">&#9680;</button><button onclick="hc()" aria-label="High contrast">HC</button></nav></header>
+<main>{% for m in get_flashed_messages() %}<p class="flash" role="alert">{{ m }}</p>{% endfor %}{% block body %}{% endblock %}</main>
+<footer>General fitness guidance, not medical advice. Consult a doctor first if you have health conditions, are over 60, pregnant, or returning from injury. Stop if you feel pain, dizziness or chest discomfort.</footer>
+<script>const R=document.documentElement;function fs(n){R.style.fontSize=n+'px'}function th(){R.dataset.theme=R.dataset.theme=='light'?'dark':'light'}function hc(){R.dataset.hc=R.dataset.hc?'':'1'}</script>
+{% block js %}{% endblock %}</body></html>
