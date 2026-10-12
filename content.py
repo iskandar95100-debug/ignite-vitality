@@ -7,7 +7,7 @@ SECTIONS = [
  ("10 Rules for Vitality", [("Plate matrix", "Half vegetables/fruit, a quarter protein, a quarter whole grains."), ("Hydration", "Sip water all day."), ("Smart fuel", "Real food, no strict diets."), ("Biorhythms", "Regular sleep and wake times."), ("System routine", "A simple daily routine."), ("4-7-8 breathing", "Inhale 4, hold 7, exhale 8."), ("Digital detox", "Screen-free hour before bed."), ("Dopamine defense", "Phone away while you move."), ("Habit tracking", "Tick every active day."), ("Micro-celebrations", "Celebrate small wins.")]),
  ("Expectation vs Reality", [("I have no time", "3 x 10-minute movement snacks."), ("I'm afraid of injury", "The Warm-Up Law: 5 min before, 5 min after."), ("Training alone is boring", "Find a fitness buddy.")]),
  ("The Winning Mindset", [("Week two", "Expect a dip. Keep sessions small. Never miss two days in a row."), ("Weekly Challenge", "Close the Rings: sessions, steps and recovery habits.")]),
- ("The Team", [("Anna", ""), ("Timur", ""), ("Sofia", ""), ("Maksim", "")]),
+ ("The Team", [("Rashidov Iskandar", ""), ("Xidirov G'olibjon", ""), ("Tohirov Iskandar", ""), ("Shermamatov Zafarbek", "")]),
 ]
 # (section title, [(field, label, type, options)])  type: sel | multi | num
 QUESTIONS = [
